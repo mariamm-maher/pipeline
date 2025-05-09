@@ -15,11 +15,36 @@ const users = [
   { id: 3, name: "Bob Johnson", email: "bob@example.com" },
 ];
 
+const companies = [
+  {
+    id: 1,
+    name: "Tech Corp",
+    industry: "Technology",
+    location: "New York",
+    founded: 2010,
+  },
+  {
+    id: 2,
+    name: "Green Energy",
+    industry: "Renewable Energy",
+    location: "California",
+    founded: 2015,
+  },
+  {
+    id: 3,
+    name: "Global Logistics",
+    industry: "Transportation",
+    location: "Chicago",
+    founded: 2005,
+  },
+];
+
 // Routes
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to the Pipeline API" });
+  res.json({ message: "Welcome to the API" });
 });
 
+// User routes
 app.get("/api/users", (req, res) => {
   res.json(users);
 });
@@ -30,6 +55,19 @@ app.get("/api/users/:id", (req, res) => {
     return res.status(404).json({ message: "User not found" });
   }
   res.json(user);
+});
+
+// Company routes
+app.get("/api/companies", (req, res) => {
+  res.json(companies);
+});
+
+app.get("/api/companies/:id", (req, res) => {
+  const company = companies.find((c) => c.id === parseInt(req.params.id));
+  if (!company) {
+    return res.status(404).json({ message: "Company not found" });
+  }
+  res.json(company);
 });
 
 // Start server
